@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import TodoPage from './pages/TodoPage';
 
-function App() {
+const App = () => {
+  const navigate = useNavigate();
+  localStorage.getItem('token') ? navigate('/todo') : navigate('/');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route element={<LoginPage />} path="/" />
+      <Route element={<SignupPage />} path="/signup" />
+      <Route element={<TodoPage />} path="/todo" />
+    </Routes>
   );
-}
+};
 
 export default App;
