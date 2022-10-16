@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 const TodoTemplateBlock = styled.div`
   width: 512px;
@@ -29,9 +28,6 @@ const Content = styled.div`
 const TodoTemplate = ({ children }) => {
   return (
     <TodoTemplateBlock>
-      <div>
-        <Link to="/">메인으로</Link>
-      </div>
       <AppTitle>To-do List</AppTitle>
       <Content>{children}</Content>
     </TodoTemplateBlock>
