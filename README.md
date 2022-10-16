@@ -1,5 +1,5 @@
 # 원티드 프리온보딩 프론트엔드 선발 과제
-## 과제 수행 관련
+## 과제 수행 결과
 - Assignment 1 - 구현 완료
 - Assignment 2 - 구현 완료
 - Assignment 3 - 미 구현
