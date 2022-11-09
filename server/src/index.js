@@ -72,7 +72,7 @@ server.post('/login', async (req, res) => {
     const user = fakeDB.find((user) => user.email === email);
     if (!user) throw new Error('User does not exist');
 
-    // 2-2. 로그인할 때 입력받은 암호화된 비밀번호와 DB의 암호화된 비밀번호를 비교
+    // 2-2. 로그인할 때 입력받은 비밀번호와 DB의 암호화된 비밀번호를 비교
     const valid = await compare(password, user.password);
     if (!valid) throw new Error('Password not correct');
 
