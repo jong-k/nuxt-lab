@@ -34,7 +34,21 @@
 
 ## 2. API 사용법
 
-root : http://localhost:4000
+- dependency 설치
+
+```
+npm i
+```
+
+- Express 서버 실행
+
+```
+npm start
+```
+
+- root 페이지
+
+http://localhost:4000
 
 ### 2-1. 회원 가입
 
