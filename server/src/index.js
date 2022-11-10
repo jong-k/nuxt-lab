@@ -18,7 +18,7 @@ const { isAuth } = require('./isAuth');
 // 1. 유저 등록
 // 2. 로그인
 // 3. 로그아웃
-// 4. 라우트 생성
+// 4. protected route 접근
 // 5. refresh token으로 새로운 access token 발급받기
 
 const server = express();
@@ -99,13 +99,13 @@ server.post('/login', async (req, res) => {
 // 3. 로그아웃
 // 일반 req와 구분하기 위해 _req(로그인된 상태) 사용
 server.post('/logout', (_req, res) => {
-  res.clearCookie('refreshToken', { path: '/refresh_token' });
-  return res.send({
+  res.clearCookie('refreshToken', { path: '/refresh_token' }); // cookie 경로
+  res.send({
     message: 'Logged out',
   });
 });
 
-// 4. 라우트 생성
+// 4. protected route 접근
 server.post('/protected', async (req, res) => {
   try {
     const userId = isAuth(req);

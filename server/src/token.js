@@ -22,7 +22,7 @@ const sendAccessToken = (res, req, accessToken) => {
 const sendRefreshToken = (res, refreshToken) => {
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true, // 브라우저에서 접근, 수정 불가
-    path: '/refresh_token',
+    path: '/refresh_token', // cookie 경로
   });
 };
 
