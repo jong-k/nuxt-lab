@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
 
 const Login = () => {
-  const [user, setUser] = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -28,7 +28,6 @@ const Login = () => {
       setUser({
         accessToken: result.accessToken,
       });
-      navigate('/');
     } else {
       console.log(result.error);
     }
@@ -36,7 +35,8 @@ const Login = () => {
 
   useEffect(() => {
     console.log(user);
-  }, []);
+    if (user.accessToken) navigate('/');
+  }, [user]);
 
   const handleChange = (e) => {
     if (e.currentTarget.name === 'email') {

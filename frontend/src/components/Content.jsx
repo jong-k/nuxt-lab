@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
 
 const Content = () => {
-  const [user] = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  console.log('content', user);
 
   useEffect(() => {
     if (!user.accessToken) navigate('/login');
