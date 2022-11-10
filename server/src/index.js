@@ -100,7 +100,8 @@ server.post('/login', async (req, res) => {
 // 일반 req와 구분하기 위해 _req(로그인된 상태) 사용
 server.post('/logout', (_req, res) => {
   res.clearCookie('refreshToken', { path: '/refresh_token' }); // cookie 경로
-  res.send({
+  // try catch 문을 사용하지 않기 때문에 return으로 종료
+  return res.send({
     message: 'Logged out',
   });
 });
