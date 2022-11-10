@@ -35,7 +35,7 @@ const Login = () => {
 
   useEffect(() => {
     console.log(user);
-    if (user.accessToken) navigate('/');
+    if (user.accessToken) navigate('/'); // effect 안에 넣지 않으면 에러 발생
   }, [user]);
 
   const handleChange = (e) => {

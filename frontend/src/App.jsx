@@ -19,9 +19,7 @@ const App = () => {
       method: 'POST',
       credentials: 'include',
     });
-    // context에서 user 비움
     setUser({});
-    // 첫 페이지로 navigate
     navigate('/');
   };
 
