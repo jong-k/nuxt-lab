@@ -1,19 +1,19 @@
-require('dotenv/config');
-const express = require('express');
+require("dotenv/config");
+const express = require("express");
 // refresh token이 cookie에 담기기 때문에 cookie 핸들링을 위해
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
-const { verify } = require('jsonwebtoken');
-const { hash, compare } = require('bcryptjs');
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+const { verify } = require("jsonwebtoken");
+const { hash, compare } = require("bcryptjs");
 
-const { fakeDB } = require('./fakeDB');
+const { fakeDB } = require("./fakeDB");
 const {
   createAccessToken,
   createRefreshToken,
   sendAccessToken,
   sendRefreshToken,
-} = require('./token');
-const { isAuth } = require('./isAuth');
+} = require("./token");
+const { isAuth } = require("./isAuth");
 
 // 1. 유저 등록
 // 2. 로그인
@@ -28,22 +28,22 @@ server.use(cookieParser());
 server.use(
   cors({
     // frontend uri 허용하여 통신 가능하게 함 (CORS 에러 방지)
-    origin: 'http://127.0.0.1:5173',
+    origin: "http://127.0.0.1:5173",
     credentials: true,
-  })
+  }),
 );
 // body data를 읽기 위해
 server.use(express.json()); // JSON 인코딩된 body
 server.use(express.urlencoded({ extended: true })); // URL-encoded body
 
 // 1. 유저 등록
-server.post('/register', async (req, res) => {
+server.post("/register", async (req, res) => {
   const { email, password } = req.body;
   try {
     // 1-1. 유저가 있는지 먼저 확인한다
     // 유저 등록하는데, DB에 이미 이메일이 있으면 에러 발생
     const user = fakeDB.find((user) => user.email === email);
-    if (user) throw Error('User already exists');
+    if (user) throw Error("User already exists");
 
     // 1-2. 없는 유저이면 비밀번호를 암호화
     const hashedPassword = await hash(password, 10);
@@ -54,7 +54,7 @@ server.post('/register', async (req, res) => {
       email,
       password: hashedPassword,
     });
-    res.send({ message: 'User Created' });
+    res.send({ message: "User Created" });
     console.log(fakeDB);
   } catch (err) {
     res.send({
@@ -64,17 +64,17 @@ server.post('/register', async (req, res) => {
 });
 
 // 2. 로그인
-server.post('/login', async (req, res) => {
+server.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     // 2-1. DB에서 유저 찾기
     // 유저 없으면 에러 발생
     const user = fakeDB.find((user) => user.email === email);
-    if (!user) throw new Error('User does not exist');
+    if (!user) throw new Error("User does not exist");
 
     // 2-2. 로그인할 때 입력받은 비밀번호와 DB의 암호화된 비밀번호를 비교
     const valid = await compare(password, user.password);
-    if (!valid) throw new Error('Password not correct');
+    if (!valid) throw new Error("Password not correct");
 
     // 2-3. refresh token과 access token 생성
     const accessToken = createAccessToken(user.id);
@@ -98,21 +98,21 @@ server.post('/login', async (req, res) => {
 
 // 3. 로그아웃
 // 일반 req와 구분하기 위해 _req(로그인된 상태) 사용
-server.post('/logout', (_req, res) => {
-  res.clearCookie('refreshToken', { path: '/refresh_token' }); // cookie 경로
+server.post("/logout", (_req, res) => {
+  res.clearCookie("refreshToken", { path: "/refresh_token" }); // cookie 경로
   // try catch 문을 사용하지 않기 때문에 return으로 종료
   return res.send({
-    message: 'Logged out',
+    message: "Logged out",
   });
 });
 
 // 4. protected route 접근
-server.post('/protected', async (req, res) => {
+server.post("/protected", async (req, res) => {
   try {
     const userId = isAuth(req);
     if (userId !== null) {
       res.send({
-        data: 'This is protected data.',
+        data: "This is protected data.",
       });
     }
   } catch (err) {
@@ -123,25 +123,25 @@ server.post('/protected', async (req, res) => {
 });
 
 // 5. refresh token으로 access token 얻기
-server.post('/refresh_token', (req, res) => {
+server.post("/refresh_token", (req, res) => {
   const token = req.cookies.refreshToken;
 
   // 만약 req에 refresh token이 없으면 중단
-  if (!token) return res.send({ accessToken: '' });
+  if (!token) return res.send({ accessToken: "" });
 
   // refresh token이 있으면 검증
   let payload = null;
   try {
     payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
   } catch (err) {
-    return res.send({ accessToken: '' });
+    return res.send({ accessToken: "" });
   }
   // refresh token이 유효하면 유저가 존재하는지 확인
   const user = fakeDB.find((user) => user.id === payload.userId);
-  if (!user) return res.send({ accessToken: '' });
+  if (!user) return res.send({ accessToken: "" });
 
   // 유저가 존재하면 refresh token을 갖고 있는지 확인
-  if (user.refreshToken !== token) return res.send({ accessToken: '' });
+  if (user.refreshToken !== token) return res.send({ accessToken: "" });
 
   // refresh token이 존재하면, 새 token 들을 생성하고 전송
   const accessToken = createAccessToken(user.id);
@@ -154,5 +154,5 @@ server.post('/refresh_token', (req, res) => {
 });
 
 server.listen(process.env.PORT, () =>
-  console.log(`server listening on port ${process.env.PORT}`)
+  console.log(`server listening on port ${process.env.PORT}`),
 );
