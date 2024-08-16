@@ -1,3 +1,5 @@
+import { defineStore } from "pinia";
+
 export const useMathStore = defineStore("math", {
   state: () => {
     return { luckyNumber: 77 };
