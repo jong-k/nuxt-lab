@@ -4,4 +4,5 @@ export const useStringStore = defineStore("string", {
   state: () => {
     return { hello: "greeting" };
   },
+  persist: true,
 });

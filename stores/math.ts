@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 export const useMathStore = defineStore("math", {
   state: () => {
-    return { luckyNumber: 77 };
+    return { luckyNumber: Math.round(Math.random() * 100) };
   },
   actions: {
     async getRandomNumber() {
@@ -10,4 +10,5 @@ export const useMathStore = defineStore("math", {
       return Math.round(Math.random() * 100);
     },
   },
+  persist: true,
 });
