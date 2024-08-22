@@ -12,10 +12,10 @@ const selectedMountain = ref(mountainList[0]);
 const emit = defineEmits(["changeMountain"]);
 
 onMounted(() => {
-  console.log(selectedMountain.value);
+  emit("changeMountain", selectedMountain.value);
 });
 
 watch(selectedMountain, (newSelectedMountain) => {
-  console.log(newSelectedMountain);
+  emit("changeMountain", selectedMountain.value);
 });
 </script>
