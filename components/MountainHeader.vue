@@ -1,7 +1,9 @@
 <template>
   <div class="w-full bg-fuchsia-200 flex items-center justify-between py-4">
-    <h2>마운틴 헤더</h2>
-    <h2>현재 selectedMountain: {{ selectedMountain }}</h2>
+    <div>
+      <h2>자식1 컴포넌트</h2>
+      <h2>현재 산: {{ selectedMountain }}</h2>
+    </div>
     <UInputMenu v-model="selectedMountain" :options="mountainList" />
   </div>
 </template>
@@ -12,10 +14,12 @@ const selectedMountain = ref(mountainList[0]);
 const emit = defineEmits(["changeMountain"]);
 
 onMounted(() => {
+  console.log("mounted");
   emit("changeMountain", selectedMountain.value);
 });
 
-watch(selectedMountain, (newSelectedMountain) => {
+watch(selectedMountain, () => {
+  console.log("watch!");
   emit("changeMountain", selectedMountain.value);
 });
 </script>
