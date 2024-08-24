@@ -6,7 +6,12 @@
 </template>
 
 <script setup lang="ts">
-const { mountain } = defineProps<{
+const props = defineProps<{
   mountain: string;
 }>();
+const { mountain } = toRefs(props);
+
+watch(mountain, () => {
+  console.log("mountain: ", mountain.value);
+});
 </script>
