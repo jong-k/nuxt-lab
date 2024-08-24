@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-const { mountain } = defineProps({
-  mountain: String,
-});
+const { mountain } = defineProps<{
+  mountain: string;
+}>();
 </script>
