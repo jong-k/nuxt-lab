@@ -1,7 +1,9 @@
 <template>
   <div>
     <h2>root page</h2>
-    <h2>random number: {{ randomNumber }}</h2>
+    <ClientOnly>
+      <h2>random number: {{ randomNumber }}</h2>
+    </ClientOnly>
     <h2>greeting: {{ stringStore.hello }}</h2>
   </div>
 </template>
