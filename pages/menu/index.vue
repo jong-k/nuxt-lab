@@ -8,7 +8,7 @@
 const { data } = await useAsyncData("menu", () =>
   $fetch("/api/menu", {
     query: {
-      name: "아이스 아메리카노",
+      price: 3000,
     },
   }),
 );

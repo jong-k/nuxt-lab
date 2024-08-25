@@ -1,11 +1,14 @@
-import type { CafeMenuItem } from "~/server/utils/menu";
+import { CAFE_MENU, CafeMenuItem } from "~/server/utils/menu";
 
 export default defineEventHandler((event) => {
   const query = getQuery(event);
-  const keys = Object.keys(query);
+  const keys = Object.keys(query) as Array<keyof CafeMenuItem>;
   if (keys.length > 0) {
     const key = keys[0] as keyof CafeMenuItem;
-    return CAFE_MENU.filter((menu) => menu[key] === query[key]);
+    if (key === "name") {
+      return CAFE_MENU.filter((menu) => menu.name.includes(String(query[key])));
+    }
+    return CAFE_MENU.filter((menu) => String(menu[key]) === query[key]);
   }
   return CAFE_MENU;
 });
