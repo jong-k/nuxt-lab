@@ -1,6 +1,6 @@
 <template>
   <nav class="container mx-auto">
-    <ul class="flex items-center justify-center gap-4">
+    <ul class="flex items-center justify-center gap-4 text-xl">
       <li v-for="navLink in NAV_LINKS" :key="navLink.label">
         <NuxtLink :to="navLink.link" :class="isActivePath(navLink.link)">{{
           navLink.label
