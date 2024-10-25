@@ -3,4 +3,5 @@ export const NAV_LINKS = [
   { label: "Math", link: "/math" },
   { label: "Mountain", link: "/mountain" },
   { label: "Menu", link: "/menu" },
+  { label: "Currency", link: "/currency" },
 ];
