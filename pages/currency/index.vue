@@ -3,7 +3,7 @@
     <div class="w-full p-2 bg-gradient-to-r from-red-100 to-red-500">
       <div>
         take: {{ takeRef }}
-        <URange color="teal" :min="5" :max="95" :step="5" v-model="takeRef" />
+        <URange color="teal" :min="0" :max="100" :step="10" v-model="takeRef" />
       </div>
     </div>
     <div>
